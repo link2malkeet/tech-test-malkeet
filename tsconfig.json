@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "types": ["node", "mocha"],
+    "lib": ["es2019", "DOM", "ES2020", "ESNext"],
+    "noImplicitAny": false,
+    "inlineSourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true
+  }
+}
