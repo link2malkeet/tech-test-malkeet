@@ -27,4 +27,30 @@ describe('express', function () {
       expect(res.statusCode).to.equal(200);
     });
   })
+
+  describe('sad scenarios', ()=> {
+    it('should return bad request when there is not auth header', async ()=> {
+      const res = await request(server)
+      .get('/basic-auth')
+      expect(res.statusCode).to.equal(400);
+    });
+    it('should return bad request when there is no basic auth header', async ()=> {
+      const res = await request(server)
+      .get('/basic-auth')
+      .set('Authorization', 'Bearer: bWF0dEBnbWFpbC5jb206dGhpcyBpcyBhIHZAbGlkIHBhc3N3b3JkIQ==');
+      expect(res.statusCode).to.equal(400);
+    });
+    it('should return bad request when there is username and password combination is not given in auth header', async ()=> {
+      const res = await request(server)
+      .get('/basic-auth')
+      .set('Authorization', 'Basic: YWJjPXh5eg==');
+      expect(res.statusCode).to.equal(400);
+    });
+    it('should respond with 401 when called with invalid Authorization header value', async () => {
+      const res = await request(server)
+      .get('/basic-auth')
+      .set('Authorization', 'Basic: dEBnbWFpbC5jb206dGhpcyBpcyBhIHZAbGlkIHBhc3N3b3JkIQ==');
+      expect(res.statusCode).to.equal(401);
+    });
+  })
 });
